@@ -1,0 +1,17 @@
+import pandas as pd
+data1={'Student':['Ice Bear','Panda','Grizzly'],'Math':['80','95','79']}
+data2={'Student':['Ice Bear','Panda','Grizzly'],'Electronics':['85','81','83']}
+data3={'Student':['Ice Bear','Panda','Grizzly'],'GEAS':['90','79','93']}
+data4={'Student':['Ice Bear','Panda','Grizzly'],'ESAT':['93','89','88']}
+A=pd.DataFrame(data1,columns=['Student','Math'])
+B=pd.DataFrame(data2,columns=['Student','Electronics'])
+C=pd.DataFrame(data3,columns=['Student','GEAS'])
+D=pd.DataFrame(data4,columns=['Student','ESAT'])
+E=pd.merge(A,B, on='Student');
+F=pd.merge(E,C, on='Student');
+tidy=pd.merge(F,D, on='Student')
+long_format=pd.melt(tidy,id_vars='Student',value_vars=['Math','Electronics','GEAS','ESAT'])
+.rename(columns={'variable':'Subjects','value':'Grades'})
+.sort_values('Student')
+.reset_index()
+.drop(columns=['index'])
